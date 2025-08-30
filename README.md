@@ -1,73 +1,143 @@
-# Welcome to your Lovable project
+# Bollinger Bands Trading Chart
 
-## Project info
+A professional Bollinger Bands indicator built with KLineCharts, delivering TradingView-quality candlestick charts with full customization.
 
-**URL**: https://lovable.dev/projects/ac7b1841-eba0-4b74-a912-f6e282c22756
+![Bollinger Bands Chart](https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=400&fit=crop)
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/ac7b1841-eba0-4b74-a912-f6e282c22756) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+## 🚀 Setup
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Open [http://localhost:8080](http://localhost:8080) to see the chart in action.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📊 Features
 
-**Use GitHub Codespaces**
+### Core Functionality
+- **Bollinger Bands Calculation**: Standard deviation-based bands with configurable parameters
+- **Professional Charting**: KLineCharts integration with TradingView-inspired styling
+- **Real-time Updates**: Instant indicator recalculation on parameter changes
+- **Crosshair Tooltips**: Hover to see Basis, Upper, and Lower band values
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Configurable Inputs
+- **Length**: Period for moving average calculation (default: 20)
+- **Source**: Price source - Close, Open, High, or Low (default: Close)
+- **StdDev Multiplier**: Standard deviation multiplier (default: 2.0)
+- **Offset**: Shift bands by N bars forward/backward (default: 0)
+- **MA Type**: Moving average type - SMA supported (extensible)
 
-## What technologies are used for this project?
+### Style Customization
+- **Individual Band Control**: Toggle, color, width, and line style for each band
+- **Background Fill**: Semi-transparent fill between upper and lower bands
+- **Professional Color Scheme**: Default colors optimized for dark trading theme
 
-This project is built with:
+## 🧮 Mathematical Implementation
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Formulas Used
 
-## How can I deploy this project?
+1. **Basis (Middle Band)**:
+   ```
+   Basis = SMA(source, length)
+   ```
 
-Simply open [Lovable](https://lovable.dev/projects/ac7b1841-eba0-4b74-a912-f6e282c22756) and click on Share -> Publish.
+2. **Standard Deviation** (Population Formula):
+   ```
+   σ = √(Σ(x - μ)² / N)
+   ```
+   Where μ is the mean (basis) and N is the period length.
 
-## Can I connect a custom domain to my Lovable project?
+3. **Upper Band**:
+   ```
+   Upper = Basis + (σ × multiplier)
+   ```
 
-Yes, you can!
+4. **Lower Band**:
+   ```
+   Lower = Basis - (σ × multiplier)
+   ```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+5. **Offset Application**:
+   - Positive offset: Shifts bands forward (delayed signal)
+   - Negative offset: Shifts bands backward (advanced signal)
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### StdDev Variant
+This implementation uses the **population standard deviation formula** (dividing by N), which is consistent with most trading platforms. This provides slightly different results compared to the sample formula (dividing by N-1).
+
+## 🛠 Technical Stack
+
+- **Framework**: React 18 + Vite + TypeScript
+- **Charting**: KLineCharts v10.0.0-alpha5
+- **UI Components**: Shadcn/ui + Tailwind CSS
+- **State Management**: React hooks
+- **Styling**: Professional dark trading theme
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── Chart.tsx              # KLineCharts wrapper with Bollinger overlay
+│   └── BollingerSettings.tsx   # Settings modal with Inputs/Style tabs
+├── lib/
+│   ├── indicators/
+│   │   └── bollinger.ts       # Core calculation utilities
+│   └── types.ts               # TypeScript interfaces
+├── pages/
+│   └── Index.tsx              # Main application page
+└── public/data/
+    └── ohlcv.json             # Demo OHLCV data (200+ candles)
+```
+
+## 🎯 Performance
+
+- **Smooth rendering** with 200-1,000+ candles
+- **Efficient calculations** with optimized algorithms
+- **Real-time updates** without chart reinitialization
+- **Memory efficient** overlay management
+
+## 🎨 Design System
+
+The application uses a professional trading interface design system:
+
+- **Dark Theme**: Optimized for extended trading sessions
+- **Semantic Colors**: HSL-based color tokens for consistency
+- **Typography**: Clear, readable fonts for data-heavy interfaces
+- **Responsive**: Works on desktop and tablet viewports
+
+## 📈 Usage
+
+1. **Add Indicator**: Click "Add Bollinger Bands" to enable the indicator
+2. **Configure Settings**: Use the settings modal to adjust parameters and styling
+3. **View Data**: Hover over the chart to see band values in the crosshair tooltip
+4. **Customize**: Modify colors, line styles, and visibility for each band
+
+## 🔧 Customization
+
+The indicator is built with extensibility in mind:
+
+- **Additional MA Types**: Extend the calculation engine for EMA, WMA, etc.
+- **Color Themes**: Modify the design system in `src/index.css`
+- **Data Sources**: Replace demo data with live market feeds
+- **Chart Features**: Add volume indicators, additional overlays
+
+## 📚 KLineCharts Version
+
+This project uses **KLineCharts v10.0.0-alpha5**, which provides:
+- Modern overlay API for custom indicators
+- Professional styling options
+- Efficient rendering for large datasets
+- Comprehensive crosshair and tooltip system
+
+## 🎬 Demo
+
+The chart includes 200 demo candles with realistic OHLCV data, demonstrating:
+- **Volatility expansion/contraction**
+- **Trend following behavior**
+- **Mean reversion signals**
+- **Offset functionality**
+
+---
+
+Built with ❤️ for professional traders and developers.

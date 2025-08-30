@@ -61,7 +61,30 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Trading-specific colors
+				chart: {
+					background: 'hsl(var(--chart-background))',
+					grid: 'hsl(var(--chart-grid))'
+				},
+				bollinger: {
+					basis: 'hsl(var(--bollinger-basis))',
+					upper: 'hsl(var(--bollinger-upper))',
+					lower: 'hsl(var(--bollinger-lower))',
+					fill: 'hsl(var(--bollinger-fill))'
+				},
+				candle: {
+					bullish: 'hsl(var(--candle-bullish))',
+					bearish: 'hsl(var(--candle-bearish))'
 				}
+			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-surface': 'var(--gradient-surface)'
+			},
+			boxShadow: {
+				'trading': 'var(--shadow-trading)',
+				'modal': 'var(--shadow-modal)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
