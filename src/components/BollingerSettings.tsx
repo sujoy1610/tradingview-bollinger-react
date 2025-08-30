@@ -136,7 +136,7 @@ export function BollingerSettings({
             </div>
           </TabsContent>
           
-          <TabsContent value="style" className="space-y-6 mt-4">
+          <TabsContent value="style" className="space-y-6 mt-4 max-h-[70vh] overflow-y-auto pr-2">
             {/* Upper Band */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
